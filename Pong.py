@@ -23,8 +23,8 @@ bar_position = width//2 - bar_size//2
 
 break_bool = False
 
-ball_position = [20, 15]
-ball_direction = 4
+ball_position = [50, 15]
+ball_direction = 1
 
 display_array = create_display(width, height, line, back)  # create display
 
@@ -48,7 +48,7 @@ while True:
             ball_position[0] -= 1
             ball_position[1] -= 1
         elif ball_direction == 1:
-            if ball_position[0] == 1:
+            if ball_position[0] <= 1:
                 ball_direction = 2
             else:
                 ball_direction = 3
@@ -56,15 +56,15 @@ while True:
             ball_position[0] += 1
             ball_position[1] -= 1
         elif ball_direction == 2:
-            if ball_position[0] == width -5:
+            if ball_position[0] >= width -6:
                 ball_direction = 1
             else:
                 ball_direction = 4
-        elif ball_direction == 3 and ball_position[0] >= 1 and ball_position[1] <= height-6:
+        elif ball_direction == 3 and ball_position[0] >= 2 and ball_position[1] <= height-6:
             ball_position[0] -= 1
             ball_position[1] += 1
         elif ball_direction == 3:
-            if ball_position[0] == 1:
+            if ball_position[0] <= 1:
                 ball_direction = 4
             elif bar_position-3  <= ball_position[0] <= bar_position+bar_size:
                 ball_direction = 1
@@ -75,7 +75,7 @@ while True:
             ball_position[0] += 1
             ball_position[1] += 1
         elif ball_direction == 4:
-            if ball_position[0] == width-6:
+            if ball_position[0] >= width-6:
                 ball_direction = 3
             elif bar_position-3 <= ball_position[0] <= bar_position+bar_size:
                 ball_direction = 2

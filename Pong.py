@@ -3,6 +3,7 @@ import os
 import time
 import readchar
 from timeout_decorator import timeout, TimeoutError
+import random
 
 from create_display import create_display
 from bar import bar
@@ -15,6 +16,10 @@ def input_with_timeout():
 
 width = 100
 height = 30
+
+probability_list = [[10, 10, 10] for i in range(width*height*4)]
+choices_list = [-1,0,1]
+
 line = "#"
 back = " "
 
@@ -24,7 +29,7 @@ bar_position = width//2 - bar_size//2
 break_bool = False
 
 ball_position = [50, 15]
-ball_direction = 1
+ball_direction = 3
 
 display_array = create_display(width, height, line, back)  # create display
 
@@ -69,8 +74,11 @@ while True:
             elif bar_position-3  <= ball_position[0] <= bar_position+bar_size:
                 ball_direction = 1
             else:
-                ball_position[0] -= 1
-                ball_position[1] += 1
+                # ball_position[0] -= 1
+                # ball_position[1] += 1
+                ball_position = [50, 15]
+                ball_direction = 3
+                bar_position = width//2 - bar_size//2
         elif ball_direction == 4 and ball_position[0] <= width-6 and ball_position[1] <= height-6:
             ball_position[0] += 1
             ball_position[1] += 1
@@ -80,8 +88,11 @@ while True:
             elif bar_position-3 <= ball_position[0] <= bar_position+bar_size:
                 ball_direction = 2
             else:
-                ball_position[0] += 1
-                ball_position[1] += 1
+                # ball_position[0] += 1
+                # ball_position[1] += 1
+                ball_position = [50, 15]
+                ball_direction = 3
+                bar_position = width//2 - bar_size//2
 
     display_array[ball_position[1]*width+ball_position[0]] = "#"
     display_array[ball_position[1]*width+ball_position[0]+1] = "#"
@@ -106,8 +117,11 @@ while True:
             pass
     os.system("clear")
     time_end = time.time()
-    if ball_position[0]-bar_size//2 >= 1 and ball_position[0]-bar_size//2 <= width - bar_size - 2:
-        bar_position = ball_position[0]-bar_size//2
+    # bar_position = ball_position[0]-bar_size//2
+    choice = random.choices(choices_list, weights = probability_list[ball_position[0]*ball_position[1]*ball_direction])[0]
+    if 1 <= bar_position+choice <= width-2:
+        bar_position += choice
+    probability_list[ball_position[0]*ball_position[1]*ball_direction][choice+1] += (width-width//2) - abs(bar_position - ball_position[0]+bar_size//2)
 
     display_array = bar(bar_size, bar_position, display_array, width, height) # bar position
 
@@ -115,5 +129,4 @@ while True:
         display_array[width*i+width-1] = "\n"
     display_str = "".join(display_array)
     print(display_str)
-    print(bar_position, bar_size)
-    print(ball_position, ball_direction)
+    print(f"bar_position: {bar_position} ball_position: {ball_position} ball_direction: {ball_direction} choice: {choice} probability: {probability_list[ball_position[0]*ball_position[1]*ball_direction]}")

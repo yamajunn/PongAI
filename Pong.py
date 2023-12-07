@@ -16,7 +16,10 @@ def input_with_timeout():
 def pong(width, height, probability_list, bar_size, bar_position, ball_position, ball_direction, line, back, try_count, count, count_list, display_array, sleep):
 
     #  1012
-    # [[28530, 9987], [7156, 33990]]s
+    # [[28530, 9987], [7156, 33990]]
+
+    # 2625
+    # [[180835, 5884], [30584, 104217]]
 
     display_array = create_display(width, height, line, back)  # create display
 
@@ -90,31 +93,17 @@ def pong(width, height, probability_list, bar_size, bar_position, ball_position,
     # if break_bool:
     #     break
 
-    os.system("clear")
+    # os.system("clear")
 
     display_array = bar(bar_size, bar_position, display_array, width, height) # bar position
 
-    for i in range(height):  # print
-        display_array[width*i+width-1] = "\n"
-    display_str = "".join(display_array)
+    # for i in range(height):  # print
+    #     display_array[width*i+width-1] = "\n"
+    # display_str = "".join(display_array)
+    # print(display_str)
+    # print(try_count)
+    # print(probability_list)
 
-    print(display_str,try_count)
-    print(probability_list)
-
-    time.sleep(sleep)
-    return [bar_position, ball_position, ball_direction, try_count]
-
-# x_list = [i for i in range(len(count_list))]
-
-# # Figureの初期化
-# fig = plt.figure(figsize=(12, 8)) #...1
-
-# # Figure内にAxesを追加()
-# ax = fig.add_subplot(111) #...2
-# ax.plot(x_list, count_list, label="test") #...3
-
-# # 凡例の表示
-# plt.legend()    
-
-# # プロット表示(設定の反映)
-# plt.show()
+    # time.sleep(sleep)
+    count += 1
+    return [bar_position, ball_position, ball_direction, try_count, count_list, count]

@@ -45,7 +45,8 @@ while True:
         else:
             probability_list[num][1] += 1
     # print(count_list)
-    if try_count == 1000:
+    
+    if try_count == 10:
         break
 
 print(probability_list)
